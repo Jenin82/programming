@@ -1,24 +1,24 @@
 #include<stdio.h>
 #include<string.h>
 
-char stack[50],infix[50],postfix[50];
-int top=-1,i=-1,j=-1;
+char stack[20],postfix[20];
+int j=-1,top=0;
 
+void pushtopostfix(char x);
 void infixtopostfix(char x);
 int priority(char x);
-void push(char x);
-void pushtopostfix(char x);
-int pop();
 
-void main()
+int main()
 {
-	char x;
-	printf("Enter the infix expression\n");
-	gets(infix);
-	for(i=0;infix[i] != '\0';i++)
+	int i=0;
+	char a[20],x;
+	printf("Enter the infix expression :\n");
+	gets(a);
+	stack[top] = '(';
+	while(a[i] != '\0')
 	{
-		x=infix[i];
-		switch(x)
+		x=a[i];
+		switch (x)
 		{
 			case '+': infixtopostfix(x);
 			break;
@@ -30,68 +30,76 @@ void main()
 			break;
 			case '^': infixtopostfix(x);
 			break;
-			case '(': push(x);
+			case '(': {
+				top++;
+				stack[top] = '(';
+			}
 			break;
-			case ')': infixtopostfix(x);
+			case ')': {
+				while(stack[top] != '(')
+				{
+					j++;
+					postfix[j] = stack[top];
+					top--;
+				}
+				top--;
+			}
 			break;
 			default : pushtopostfix(x);
 			break;
 		}
+		i++;
 	}
+	while(stack[top] != '(')
+	{
+		j++;
+		postfix[j] = stack[top];
+		top--;
+	}
+	top--;
+	printf("Postfix expression is :\n");
 	puts(postfix);
+	return 0;
 }
 
 //Functions
-
-void infixtopostfix(char x)
-{
-	int a = priority(x);
-	int b = priority(stack[top]);
-	if(a>b)
-	{
-		top++;
-		stack[top] = a;
-	}
-	else
-	{
-		j++;
-		postfix[j] = pop();
-		top++;
-		stack[top] = a;
-	}
-}
-
-void push(char x)
-{
-	top++;
-	stack[top] = x;
-}
 
 void pushtopostfix(char x)
 {
 	j++;
 	postfix[j] = x;
-	puts(x);
 }
 
-int pop()
+void infixtopostfix(char x)
 {
-	top--;
-	return stack[top+1];
+	int a,b;
+	a = priority(x);
+	b = priority(stack[top]);
+	if(a>b)
+	{
+		top++;
+		stack[top] = x;
+	}
+	else 
+	{
+		j++;
+		postfix[j] = stack[top];
+		stack[top] = x;
+	}
 }
 
 int priority(char x)
 {
-	if(x=='+')
+	if(x == '+')
 		return 1;
-	else if(x=='-')
+	else if(x == '-')
 		return 1;
-	else if(x=='*')
+	else if(x == '*')
 		return 2;
-	else if(x=='/')
+	else if(x == '/')
 		return 2;
-	else if(x=='^')
+	else if(x == '^')
 		return 3;
-	else
+	else 
 		return 0;
 }
