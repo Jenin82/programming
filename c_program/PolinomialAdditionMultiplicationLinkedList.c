@@ -5,11 +5,12 @@ struct node
 {
   int coeff,expo;
   struct node *link;
-} *head1, *head2, *head3;
+} *head1, *head2, *head3, *head4;
 
 struct node * readpoly();
 void display(struct node *head);
 struct node * addpoly();
+struct node * multiply();
 
 void main(){
   printf("First polynomial :\n");
@@ -21,6 +22,9 @@ void main(){
   printf("\n\nSum of polynomials is :\n");
   head3 = addpoly();
   display(head3);
+  printf("\n\nMultiplication of polynomials is :\n");
+  head4 = multiply();
+  display(head4);
 }
 
 //Functions
@@ -128,6 +132,50 @@ struct node * addpoly(){
       r->link = new;
       r = new;
     }
+  }
+  return(head);
+}
+
+struct node * multiply(){
+  struct node *new, *p, *q, *r, *head = NULL, *prev;
+  p = head1;
+  q = head2;
+  while(p != NULL){
+    while(q != NULL){
+      new = (struct node *)malloc(sizeof(struct node *));
+      new->coeff = p->coeff * q->coeff;
+      new->expo = p->expo + q->expo;
+      new->link = NULL;
+      if(head == NULL){
+        head = new;
+        r = head;
+      }
+      else {
+        r->link = new;
+        r = new;
+      }
+      q = q->link;
+    }
+    p = p->link;
+    q = head2;
+  }
+  p = head;
+  while(p != NULL){
+    prev = p;
+    q = p->link;
+    while(q != NULL){
+      if(q->expo == p->expo){
+        p->coeff = p->coeff + q->coeff;
+        prev->link = q->link;
+        free(q);
+        q = prev->link;
+      }
+      else{
+        prev = q;
+        q = q->link;
+      }
+    }
+    p = p->link;
   }
   return(head);
 }
