@@ -45,7 +45,7 @@ void Enqueue()
     scanf("%d",&b);
     r++;
     q[r].element = a;
-	q[r].priority = b;
+  	q[r].priority = b;
   }
 }
 
@@ -56,7 +56,7 @@ void Dequeue()
   else 
   {
   int i,j;
-    for(i=f;i<=r;i++)
+  for(i=f;i<=r;i++)
 		for(j=i;j<=r-i-1;j++)
 			if(q[j].priority < q[j+1].priority){
 				q[20] = q[j];
@@ -64,7 +64,7 @@ void Dequeue()
 				q[j+1] = q[20];
 			}
 	printf("element %d is deleted from queue\n",q[f].element);
-    f++;
+  f++;
   }
 }
 
