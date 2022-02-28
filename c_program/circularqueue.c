@@ -44,39 +44,30 @@ void insert()
 void delete()
 {
 	if(f==-1&&r==-1)
-	{
 		printf("\nQueue is Underflow ");
-	}
-	else if(f==r)
-	{
+	else if(f==r) {
 		printf("\n%d is deleted",Q[f]);
 		f=r=-1;		
 	}
-	else
-	{
+	else {
 		printf("\n%d is deleted",Q[f]);
 		f=(f+1)%b;
 	}	
 }
 void display()
 {
-	if(f==-1&&r==-1)
-	{
+	if(f==-1&&r==-1) 
 		printf("\nQueue is empty ");
-	}
-	else if(r>=f)
-	{
+	else if(r>=f) {
 		printf("\nQueue : ");
 		for(i=f;i<=r;i++)
 			printf("%d\t",Q[i]);
 	}
-	else 
-	{
+	else {
 		printf("\nQueue : ");
 		for(i=f;i<b;i++)
 			printf("%d\t",Q[i]);
 		for(i=0;i<=r;i++)
 			printf("%d\t",Q[i]);
 	}	
-			
 }
