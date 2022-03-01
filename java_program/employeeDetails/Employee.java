@@ -10,14 +10,13 @@ public class Employee {
 	}
 
 	void printDetails(){
-		System.out.println("Name : " + Employee.name + "\nAddress : "+ Employee.address);
+		System.out.println("\nName : " + Employee.name + "\nAddress : "+ Employee.address);
 		System.out.println("Age : " + Employee.age + "\nPhone Number : " + Employee.phoneNumber);
 	}
 
 	public static void main(String[] args) {
 		Manager m = new Manager();
 		Officer o = new Officer();
-		Employee e = new Employee();
 		Manager.specialization = "Digital Marketing";
 		Officer.department = "Marketing";
 		Employee.address = "Ukraine";
@@ -25,9 +24,14 @@ public class Employee {
 		Employee.name = "Vasu";
 		Employee.age = 40;
 		Employee.phoneNumber = 1234567890;
-		e.printDetails();
-		e.printSalary();
 		m.printDetails();
+		Manager.specialization = "B-Tech";
+		Officer.department = "CSE";
+		Employee.address = "Ernakulam";
+		Employee.salary = 90000.00;
+		Employee.name = "Edwin";
+		Employee.age = 30;
+		Employee.phoneNumber = 1876543210;
 		o.printDetails();
 	}
 }
@@ -36,7 +40,9 @@ class Manager extends Employee {
 	public static String specialization;
 	Employee e = new Employee();
 	void printDetails() {
-		System.out.println("Specialization : " + Manager.specialization);
+		e.printDetails();
+		System.out.println("Specialization : " + Manager.specialization + "\nDepartment : " + Officer.department);
+		e.printSalary();
 	}
 }
 
@@ -44,6 +50,8 @@ class Officer extends Employee {
 	public static String department;
 	Employee e = new Employee();
 	void printDetails() {
-		System.out.println("Department : " + Officer.department);
+		e.printDetails();
+		System.out.println("Specialization : " + Manager.specialization + "\nDepartment : " + Officer.department);
+		e.printSalary();
 	}
 }
