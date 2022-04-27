@@ -1,19 +1,20 @@
-import java.util.Scanner;
-import javax.swing.*;
-public class Test {
-  public static void main(String[] args) {
-  int x = Integer.parseInt(JOptionPane.showInputDialog("Enter number"));
-      int flag = 0;
-      for (int i = 2; i <= x/ 2; ++i) {
-        if (x % i == 0) {
-          flag = 1;
-          break;
-      }
-    }
-    if (flag==0)
-      
-	      JOptionPane.showMessageDialog(null,x +" is prime ");
-    else
-      JOptionPane.showMessageDialog(null,x +" is not prime ");
-  }
+import javax.swing.JOptionPane;
+
+class Test {
+	static boolean isPrime(int m){
+		if(m<=1)
+			return false;
+		for(int i=2;i<=m/2;i++)
+			if (m%i == 0) 
+				return false;
+		return true;
+	}
+
+	public static void main(String[] args) {
+		int n = Integer.parseInt(JOptionPane.showInputDialog("Enter the number to check prime or not"));
+		if (isPrime(n)) 
+			JOptionPane.showMessageDialog(null, n+" is a prime number");
+		else
+			JOptionPane.showMessageDialog(null, n+" is not a prime number");
+	}
 }
