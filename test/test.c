@@ -1,21 +1,69 @@
 #include <stdio.h>
 
-int main() {
-	int n, i, a[10], temp=0, item;
-	printf("Enter the limit\n");
-	scanf("%d",&n);
-	printf("Enter the elements\n");
-	for(i=0; i<n; i++) {
-		scanf("%d", &a[i]);
+int q[100],n,f=-1,r=-1,item;
+
+void enqueue(){
+	if(f==0&&r=n-1 || r+1==f){
+		printf("Overflow\n");
 	}
-	printf("Enter the item to be searched\n");
-	scanf("%d",&item);
-	for(i=0; i<n; i++) {
-		if(a[i]==item){
-			printf("Element %d found at psition %d\n",a[i], i+1);
-			return 0;
-		}
+	else if(f==-1&&r==-1){
+		f=r=0;
+		q[r] = item;
 	}
-	printf("Element not found\n");
-	return 0;
+	else if(r==n-1){
+		r=0;
+		q[r]=item;
+	}
+	else {
+		r=r+1;
+		q[r]= item;
+	}
+}
+
+void dequeue(){
+	if(f==-1 && r==-1){
+		printf("Underflow");
+	}
+	else if(f==r){
+		f=r=-1;
+	}
+	else if(f==n-1){
+		f=0;
+	}
+	else {
+		f=f+1;
+	}
+}
+
+void enqueuef(){
+	if(f==0 && r=n-1 || r+1==f){
+		printf("Overflow\n");
+	}
+	else if(f==-1 && r==-1){
+		f=r=0;
+		q[r] = item;
+	}
+	else if(f==0){
+		f=n-1;
+		q[f]=item;
+	}
+	else {
+		f=f-1;
+		q[f]=item;
+	}
+}
+
+void deleter(){
+	if(f==-1 && r==-1){
+		printf("Underflow");
+	}
+	else if(f==r){
+		f=r=-1;
+	}
+	else if(r==0){
+		r=n-1;
+	}
+	else {
+		r--;
+	}
 }
