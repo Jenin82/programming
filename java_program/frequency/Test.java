@@ -1,23 +1,21 @@
+import javax.swing.*;
 import java.util.*;
-public class Test {
+
+class Test {
 	public static void main(String[] args) {
-		Scanner in = new Scanner(System.in);
-		System.out.println("Enter the string");
-		String s = in.nextLine();
-		int freq[] = new int[s.length()];
-		char a[] = s.toCharArray();
+		String s = JOptionPane.showInputDialog("Enter the string");
+		char c[] = s.toCharArray();
+		int [] freq = new int[s.length()];
 		for(int i=0;i<s.length();i++){
 			freq[i]=1;
-			for(int j=i+1;j<s.length();j++){
-				if(a[i]==a[j]){
+			for(int j=i+1;j<s.length();j++)
+			if(c[i] == c[j]){
 					freq[i]++;
-					a[j]='0';
-				}
+					c[j] = '0';
 			}
 		}
-		System.out.println("Freqencies are :");
 		for(int i=0;i<s.length();i++)
-			if(a[i] != '0')
-				System.out.println(a[i]+"-"+freq[i]);
+			if(c[i] != '0') 
+				JOptionPane.showMessageDialog(null, "Frequency of "+c[i]+" = "+freq[i]);
 	}
 }
