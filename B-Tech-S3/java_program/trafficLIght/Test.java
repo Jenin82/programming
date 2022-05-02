@@ -78,7 +78,7 @@ public class Test{
 		j.setLayout(null);
 		j.setBounds(100, 100, 400, 300);
 		j.setVisible(true);
-		j.setBackground(Color.LIGHT_GRAY);
+		j.setBackground(Color.DARK_GRAY);
 		TrafficLight t = new TrafficLight();
 		j.add(t);
 	}
