@@ -20,14 +20,6 @@ void main() {
 				p[i] = p[j];
 				p[j] = temp;
 			} 
-	for(i=0;i<n;i++) 
-		for(j=0;j<n;j++) 
-			if(p[i].at == p[j].at)
-				if(p[i].bt < p[j].bt) {
-					temp = p[i];
-					p[i] = p[j];
-					p[j] = temp;
-				}
 	p[0].wt = 0; 
 	p[0].tt = p[0].bt;
 	double ttt, twt;
