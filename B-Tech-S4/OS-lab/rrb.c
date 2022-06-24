@@ -1,38 +1,30 @@
-	#include<stdio.h>
+#include<stdio.h>
  
-int main()
-{
- 
-  int count,j,n,time,remain,flag=0,time_quantum;
+int main() {
+  int count,j,n,time,remain,flag=0,time_quantum,temp;
   int wait_time=0,turnaround_time=0,at[10],bt[10],rt[10];
   printf("Enter Total Process:");
   scanf("%d",&n);
   remain=n;
-  for(count=0;count<n;count++)
-  {
+  for(count=0;count<n;count++) {
     printf("Enter Arrival Time and Burst Time for Process  %d :",count+1);
-    scanf("%d",&at[count]);
-    scanf("%d",&bt[count]);
+    scanf("%d%d",&at[count],&bt[count]);
     rt[count]=bt[count];
   }
   printf("Enter Time Quantum:");
   scanf("%d",&time_quantum);
   printf("\n\nProcess\t\tTAT(ms)\tWT(ms)\n\n");
-  for(time=0,count=0;remain!=0;)
-  {
-    if(rt[count]<=time_quantum && rt[count]>0)
-    {
+  for(time=0,count=0;remain!=0;) {
+    if(rt[count]<=time_quantum && rt[count]>0) {
       time+=rt[count];
       rt[count]=0;
       flag=1;
     }
-    else if(rt[count]>0)
-    {
+    else if(rt[count]>0) {
       rt[count]-=time_quantum;
       time+=time_quantum;
     }
-    if(rt[count]==0 && flag==1)
-    {
+    if(rt[count]==0 && flag==1) {
       remain--;
       printf("P[%d] \t\t%d\t%d\n",count+1,time-at[count],time-at[count]-bt[count]);
       wait_time+=time-at[count]-bt[count];
@@ -48,6 +40,5 @@ int main()
   }
   printf("\nAverage Waiting Time= %fms\n",wait_time*1.0/n);
   printf("Avg Turnaround Time = %fms",turnaround_time*1.0/n);
-  
   return 0;
 }
