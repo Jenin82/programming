@@ -44,6 +44,7 @@ int main() {
           f[i] = 1;
         }
       }
+      //tesdbdhsdbhsbh
   int flag = 1;
   for(int i=0;i<n;i++) 
     if(f[i]==0) {
