@@ -2,7 +2,7 @@
 
 int ref[50],p[10],i,j,k=0,f,n,s=-1,m=0,temp=0,o;
 void enqueue(int a);
-int test();
+int pageFaultCheck();
 void main() {
   printf("Enter the no. of reference string :");
   scanf("%d",&n);
@@ -21,9 +21,9 @@ void main() {
 
 void enqueue(int a){
   int e = f-1;
-  m = test(a);
+  m = pageFaultCheck(a);
   if(m==1)
-    printf("\n");
+    printf("No page fault\n");
   else {
     if(s==e)
       s=0;
@@ -37,7 +37,7 @@ void enqueue(int a){
   }
 }
 
-int test(int b){
+int pageFaultCheck(int b){
   for(o=0;o<f;o++)
     if(b==p[o])
       temp++;
@@ -45,6 +45,5 @@ int test(int b){
     temp=0;
     return 1;
   }
-  else 
-    return 0;
+  return 0;
 }
