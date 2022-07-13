@@ -1,34 +1,11 @@
-#include<stdio.h>
+Enter no. of memory partitions : 5
+Enter size of each partitions : 800 450 360 150 200
+Enter no. of processes : 4
+Enter size of each process : 125 786 364 156
 
-void main(){
-	int m_size[10], p_size[10], m, n, flags[10], allocation[10], i, j;
-	for(i = 0; i < 10; i++) {
-		flags[i] = 0;
-		allocation[i] = -1;
-	}
-	printf("Enter no. of memory partitions : ");
-	scanf("%d", &m);
-	printf("Enter size of each partitions : ");
-	for(i = 0; i < m; i++)
-		scanf("%d", &m_size[i]);
-	printf("Enter no. of processes : ");
-	scanf("%d", &n);
-	printf("Enter size of each process : ");
-	for(i = 0; i < n; i++)
-		scanf("%d", &p_size[i]);
-	for(i = 0; i < n; i++)        
-		for(j = 0; j < m; j++)
-			if(flags[j] == 0 && m_size[j] >= p_size[i]) {
-				allocation[j] = i;
-				flags[j] = 1;
-				break;
-			}
-	printf("\nPartition no.\tM_size\t\tProcess_no.\t\tProcess_size\n");
-	for(i = 0; i < m; i++) {
-		printf("%d\t\t%d\t\t", i+1, m_size[i]);
-		if(flags[i] == 1)
-			printf("%d\t\t\t%d\n",allocation[i]+1,p_size[allocation[i]]);
-		else
-			printf("Not allocated\n");
-	}
-}
+Partition no.   M_size          Process_no.             Process_size
+1               800             1                       125
+2               450             3                       364
+3               360             4                       156
+4               150             Not allocated
+5               200             Not allocated

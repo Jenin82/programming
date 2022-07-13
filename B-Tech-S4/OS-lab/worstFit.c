@@ -2,26 +2,21 @@
 
 int main() {
 	int n,n1,i;
-	printf("enter the number of processes:");
+	printf("Enter the number of processes: ");
 	scanf("%d",&n);
 	int process[n];
-	printf("\n enter the size of processes:\n");
+	printf("Enter the size of processes: ");
 	for(i=0;i<n;i++) {
 		scanf("%d",&process[i]);
 	}
-	printf("enter the no of memoryblocks:");
+	printf("Enter the number of memory blocks: ");
 	scanf("%d",&n1);
 	int blocks[n1];
-	printf("\n enter the size of blocks:\n");
+	printf("Enter the size of blocks: ");
 	int total=0;
-	for(i=0;i<n1;i++) {
+	for(i=0;i<n1;i++) 
 		scanf("%d",&blocks[i]);
-		total=total+blocks[i];
-	}
-	int process1[n1];
-	int job[n1];
-	int frag[n1];
-	int check[n1];
+	int process1[n1], job[n1], frag[n1], check[n1];
 	for(i=0;i<n1;i++) {
 		check[i]=0;
 	}
@@ -47,7 +42,6 @@ int main() {
 			process1[j1]=process[i];
 			job[j1]=i+1;
 			frag[j1]=blocks[j1]-process[i];
-			used=used+process[i];
 			check[j1]=1;
 			int l;
 		}
@@ -60,6 +54,4 @@ int main() {
 		else 
 			printf("%d\t\t%d\t\t%d\t\t%d\n",blocks[i],process1[i],job[i],frag[i]);
 	}
-	printf("totalmemoryallocation:%d\n",total);
-	printf("memoryused:%d\n",used);
 }
