@@ -10,7 +10,7 @@ int main() {
 	scanf("%d",&n);
   printf("Enter the requests :");
   for(int i=0;i<n;i++)  	
-		scanf("%d",&a[i]);
+  scanf("%d",&a[i]);
   cy=cy-1;
 	for(int i=0;i<n;i++)
 		for(int j=0;j<n;j++)
@@ -30,13 +30,14 @@ int main() {
 				s=s+a[co]-c;
 			}
 			else
-				s=s+a[co+1]-a[co];
+			s=s+a[co+1]-a[co];
 		}
 	}
 	s=s+cy-a[co+1];
-	s=s+cy-a[m];
-	for(int h=m;h>0;h--)
-		s=s+a[h]-a[h-1];
+	s=s+cy;
+	s=s+a[0]-0;
+	for(int h=0;h<m-1;h++)
+		s=s+a[h+1]-a[h];
 	s=s-6;
-printf("Total head movement:%d",s);
-}
+	printf("Total head movement:%d",s);
+} 
