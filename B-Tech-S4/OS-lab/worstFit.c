@@ -1,57 +1,40 @@
 #include<stdio.h>
-
-int main() {
-	int n,n1,i;
-	printf("Enter the number of processes: ");
-	scanf("%d",&n);
-	int process[n];
-	printf("Enter the size of processes: ");
-	for(i=0;i<n;i++) {
-		scanf("%d",&process[i]);
+int n,m,i,j,p[100],b[100];
+void main() {
+	printf("Enter the no. process and no. memory blocks : ");
+	scanf("%d%d",&n,&m);
+	int flag[m],allocation[m];
+	printf("Enter the size of each process : ");
+	for(i=0;i<n;i++) 
+		scanf("%d",&p[i]);
+	printf("Enter the size of each block : ");
+	for(i=0;i<m;i++){
+		scanf("%d",&b[i]);
+		flag[i]=0;
+		allocation[i]=-1;
 	}
-	printf("Enter the number of memory blocks: ");
-	scanf("%d",&n1);
-	int blocks[n1];
-	printf("Enter the size of blocks: ");
-	int total=0;
-	for(i=0;i<n1;i++) 
-		scanf("%d",&blocks[i]);
-	int process1[n1], job[n1], frag[n1], check[n1];
-	for(i=0;i<n1;i++) {
-		check[i]=0;
-	}
-	int j,used=0;
-	i=0;
-	while(i<n) {
-		int max=-1,j1=-1,k=-1,max1;
-		for(j=0;j<n1;j++) {
-			max1=blocks[j];
-			if(max1>=max&&check[j]==0&&max1>=process[i]) {
-				max=max1;
-				j1=j;
+	for(i=0;i<m;i++) 
+		for(j=0;j<m;j++)
+			if(b[i]>b[j]) {
+				int temp=b[i];
+				b[i]=b[j];
+				b[j]=temp;
 			}
-			else {
-				if(check[j]==0) {
-					process1[j]=0;
-					job[j]=0;
-					frag[j]=blocks[j];
-				}
-			}
+	for(i=0;i<n;i++) 
+		for(j=0;j<m;j++)
+			if(flag[j]==0 && b[j]>=p[i]) {
+				flag[j]=1;
+				allocation[j]=i;
+				break;
 		}
-		if(k!=j1) {
-			process1[j1]=process[i];
-			job[j1]=i+1;
-			frag[j1]=blocks[j1]-process[i];
-			check[j1]=1;
-			int l;
-		}
-		i++;
-	}
-	printf("blocksize\tprocess size\tprocessno\tfragmentation\n");
-	for(i=0;i<n1;i++) {
-		if(job[i]==0) 
-			printf("%d\t\t%d\t\tNot allocated\t\t\n",blocks[i],process1[i]);
-		else 
-			printf("%d\t\t%d\t\t%d\t\t%d\n",blocks[i],process1[i],job[i],frag[i]);
-	}
+	printf("Process\t\t\tProcess Size\n");
+	for(i=0;i<n;i++) 
+		printf("%d\t\t\t%d\n",i,p[i]);
+	printf("Block Size\tAllocated Process\n");
+	for(i=0;i<m;i++) {
+		if(flag[i]==1) 
+			printf("%d\t\t\t%d\n",b[i],allocation[i]);
+		else
+			printf("%d\t\t\tNot allocated\n",b[i]);
+	} 
 }

@@ -1,36 +1,40 @@
 #include<stdio.h>
-int c,n,a[100],i,j,s,x=0,copy,cy;
+int n,m,i,j,p[100],b[100];
 void main() {
-	printf("Enter the current head position : ");
-	scanf("%d",&c);
-	printf("Enter the cylinder size : ");
-	scanf("%d",&cy);
-	cy = cy-1;
-	printf("Enter the no of requests : ");
-	scanf("%d",&n);
-  printf("Enter the requests : ");
-	for(i=0;i<n;i++)
-		scanf("%d",&a[i]);
-	for(i=0;i<n;i++)
-		for(j=0;j<n;j++) 
-			if(a[i]<a[j]) {
-				int temp = a[i];
-				a[i] = a[j];
-				a[j] = temp;
+	printf("Enter the no. process and no. memory blocks : ");
+	scanf("%d%d",&n,&m);
+	int flag[m],allocation[m];
+	printf("Enter the size of each process : ");
+	for(i=0;i<n;i++) 
+		scanf("%d",&p[i]);
+	printf("Enter the size of each block : ");
+	for(i=0;i<m;i++){
+		scanf("%d",&b[i]);
+		flag[i]=0;
+		allocation[i]=-1;
+	}
+	for(i=0;i<m;i++) 
+		for(j=0;j<m;j++)
+			if(b[i]>b[j]) {
+				int temp=b[i];
+				b[i]=b[j];
+				b[j]=temp;
+			}
+	for(i=0;i<n;i++) 
+		for(j=0;j<m;j++)
+			if(flag[j]==0 && b[j]>=p[i]) {
+				flag[j]=1;
+				allocation[j]=i;
+				break;
 		}
-	for(i=0;i<n;i++) {
-		if(a[i]<c)
-			x++;
-		else if(x==copy)
-			s = a[i]-c;
-		else 
-			s += a[i]-a[i-1];
-		copy = x;
-	}
-	s += cy-a[i-1];
-	s += cy+a[0];
-	for(i=1;i<x;i++) {
-		s += a[i]-a[i-1];
-	}
-	printf("Total cylinder head : %d\n",s);
+	printf("Process\t\t\tProcess Size\n");
+	for(i=0;i<n;i++) 
+		printf("%d\t\t\t%d\n",i,p[i]);
+	printf("Block Size\tAllocated Process\n");
+	for(i=0;i<m;i++) {
+		if(flag[i]==1) 
+			printf("%d\t\t\t%d\n",b[i],allocation[i]);
+		else
+			printf("%d\t\t\tNot allocated\n",b[i]);
+	} 
 }
