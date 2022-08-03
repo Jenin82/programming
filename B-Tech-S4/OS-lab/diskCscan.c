@@ -1,43 +1,36 @@
 #include<stdio.h>
-
-int main() {
-	int c,a[100],s,n,cy,co=0,k=0,m;
-	printf("Enter the current head position :");
+int c,n,a[100],i,j,s,x=0,copy,cy;
+void main() {
+	printf("Enter the current head position : ");
 	scanf("%d",&c);
-	printf("Enter the no of cylinder size :");
+	printf("Enter the cylinder size : ");
 	scanf("%d",&cy);
-	printf("Enter the no of requests :");
+	cy = cy-1;
+	printf("Enter the no of requests : ");
 	scanf("%d",&n);
-  printf("Enter the requests :");
-  for(int i=0;i<n;i++)  	
-  scanf("%d",&a[i]);
-  cy=cy-1;
-	for(int i=0;i<n;i++)
-		for(int j=0;j<n;j++)
+  printf("Enter the requests : ");
+	for(i=0;i<n;i++)
+		scanf("%d",&a[i]);
+	for(i=0;i<n;i++)
+		for(j=0;j<n;j++) 
 			if(a[i]<a[j]) {
-				int t;
-				t=a[i];
-				a[i]=a[j];
-				a[j]=t;
-			} 
-	for(int i=0;i<n-1;i++) {
-		if(a[i]<c)
-			co++;
-		else {
-			k++;
-			if(k==1) {
-				m=co;
-				s=s+a[co]-c;
-			}
-			else
-			s=s+a[co+1]-a[co];
+				int temp = a[i];
+				a[i] = a[j];
+				a[j] = temp;
 		}
+	for(i=0;i<n;i++) {
+		if(a[i]<c)
+			x++;
+		else if(x==copy)
+			s = a[i]-c;
+		else 
+			s += a[i]-a[i-1];
+		copy = x;
 	}
-	s=s+cy-a[co+1];
-	s=s+cy;
-	s=s+a[0]-0;
-	for(int h=0;h<m-1;h++)
-		s=s+a[h+1]-a[h];
-	s=s-6;
-	printf("Total head movement:%d",s);
-} 
+	s += cy-a[i-1];
+	s += cy+a[0];
+	for(i=1;i<x;i++) {
+		s += a[i]-a[i-1];
+	}
+	printf("Total cylinder head : %d\n",s);
+}

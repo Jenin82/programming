@@ -28,8 +28,8 @@ void main() {
 		copy = x;
 	}
 	s += cy-a[i-1];
-	s += cy-a[x-1];
-	for(i=x-1;i>0;i--) {
+	s += cy+a[0];
+	for(i=1;i<x;i++) {
 		s += a[i]-a[i-1];
 	}
 	printf("Total cylinder head : %d\n",s);
