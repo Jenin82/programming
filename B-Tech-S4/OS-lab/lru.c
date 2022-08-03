@@ -3,7 +3,7 @@
 int ref[50],p[10],i,j,k=0,f,n,s=-1,m,temp=0,o,time[100],h,t,z,y=0;
 void enqueue(int a);
 int pageFaultCheck();
-int fifo();  
+int fifo();
 int lru();
 void main() {
   printf("Enter the no. of reference string :");

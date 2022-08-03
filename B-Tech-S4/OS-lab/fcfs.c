@@ -1,6 +1,6 @@
 #include<stdio.h>
 
-struct sjf {
+struct fcfs {
 	int bt,at,wt,tt,pid;
 }p[10],temp;
 
@@ -22,9 +22,11 @@ void main() {
 			} 
 	p[0].wt = 0; 
 	p[0].tt = p[0].bt;
+	int bt = 0;
 	double ttt, twt;
 	for(i=1;i<n;i++) {
-		p[i].wt = p[i-1].wt + p[i-1].bt;
+		bt = bt + p[i-1].bt;
+		p[i].wt = bt - p[i].at;
 		p[i].tt = p[i].wt + p[i].bt;
 		ttt += p[i].tt;
 		twt += p[i].wt;
