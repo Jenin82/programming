@@ -1,38 +1,40 @@
 #include<stdio.h>
-
+int n,m,i,j,k=-1,p[100],b[100];
 void main() {
-	int fragment[20],b[20],p[20],i,j,nb,np,temp,lowest=9999;
-	static int barray[20],parray[20];
-	printf("\nEnter the number of blocks:");
-	scanf("%d",&nb);
-	printf("Enter the number of processes:");
-	scanf("%d",&np);
-	printf("\nEnter the size of the blocks:-\n");
-	for(i=1;i<=nb;i++) {
-		printf("Block no.%d:",i);
-    scanf("%d",&b[i]);
-  }
-	printf("\nEnter the size of the processes :-\n");
-	for(i=1;i<=np;i++) {
-    printf("Process no.%d:",i);
-    scanf("%d",&p[i]);
-  }
-	for(i=1;i<=np;i++) {
-		for(j=1;j<=nb;j++) {
-			if(barray[j]!=1) {
-				temp=b[j]-p[i];
-				if(temp>=0)
-					if(lowest>temp) {
-						parray[i]=j;
-						lowest=temp;
-					}
+	printf("Enter the no. process and no. memory blocks : ");
+	scanf("%d%d",&n,&m);
+	int flag[m],allocation[m];
+	printf("Enter the size of each process : ");
+	for(i=0;i<n;i++) 
+		scanf("%d",&p[i]);
+	printf("Enter the size of each block : ");
+	for(i=0;i<m;i++){
+		scanf("%d",&b[i]);
+		flag[i]=0;
+		allocation[i]=-1;
+	}
+	for(i=0;i<m;i++) 
+		for(j=0;j<m;j++)
+			if(b[i]<b[j]) {
+				int temp=b[i];
+				b[i]=b[j];
+				b[j]=temp;
 			}
-		}
-	fragment[i]=lowest;
-	barray[parray[i]]=1;
-	lowest=10000;
-	}
-	printf("\nProcess_no\tProcess_size\tBlock_no\tBlock_size\tFragment");
-	for(i=1;i<=np && parray[i]!=0;i++)
-		printf("\n%d\t\t%d\t\t%d\t\t%d\t\t%d",i,p[i],parray[i],b[parray[i]],fragment[i]);
-	}
+	for(i=0;i<n;i++) 
+		for(j=0;j<m;j++) 
+			if(flag[j]==0 && b[j]>=p[i]) {
+				allocation[j]=i;
+				flag[j]=1;
+				break;
+			}
+	printf("Process\t\t\tProcess Size\n");
+	for(i=0;i<n;i++) 
+		printf("%d\t\t\t%d\n",i,p[i]);
+	printf("Block Size\tAllocated Process\n");
+	for(i=0;i<m;i++) {
+		if(allocation[i]!=-1) 
+			printf("%d\t\t\t%d\n",b[i],allocation[i]);
+		else
+			printf("%d\t\t\tNot allocated\n",b[i]);
+	} 
+}
