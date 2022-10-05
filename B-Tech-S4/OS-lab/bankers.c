@@ -28,7 +28,7 @@ int main() {
     for (j = 0; j < m; j++)
       need[i][j] = max[i][j] - alloc[i][j];
   int y = 0;
-  for (k = 0; k < 5; k++) 
+  for (k = 0; k < n; k++) 
 		for (i = 0; i < n; i++) 
       if (f[i] == 0) {
 				int flag = 0;

@@ -2,3 +2,4 @@ cd /home/student21/Documents/'BINUKRISHNA T U'/OS
 
 cd /home/student22/Documents/Jenin/programming/B-Tech-S4/OS-lab
 
+sudo mysql -u root

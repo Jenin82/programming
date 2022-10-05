@@ -1,5 +1,4 @@
 #include<stdio.h>
-
 int n,i,j;
 void main(){
 	printf("Enter the number of philosophers :");
