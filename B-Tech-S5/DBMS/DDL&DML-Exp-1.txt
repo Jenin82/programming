@@ -1,7 +1,14 @@
-Jenin EXP-1
+EXP-1 (Implementation of DDL and DML commands)
+
 
 1. create table student(id int primary key,name varchar(30),department varchar(20),mark1 float(12,2),mark2 float(12,2),CGPA float(12,2));
-   insert into student values( 101,'A','CS',200,150,7.21), (102,'B','CS',150,200,8.21), (103,'C','EC',150,80,7.00), (104,'D','ME',100,200,6.29),(104,'D','ME',100,200,7.88);
+   insert into student values
+	 ( 101,'A','CS',200,150,7.21), 
+	 (102,'B','CS',150,200,8.21), 
+	 (103,'C','EC',150,80,7.00), 
+	 (104,'D','ME',100,200,6.29),
+	 (105,'Anu','EC',150,180,7.88);
+
 +------------+-------------+------+-----+---------+-------+
 | Field      | Type        | Null | Key | Default | Extra |
 +------------+-------------+------+-----+---------+-------+
@@ -13,14 +20,6 @@ Jenin EXP-1
 | CGPA       | float(12,2) | YES  |     | NULL    |       |
 +------------+-------------+------+-----+---------+-------+
 
-
-2. create table hostel_details(id int primary key, name varchar(30),block varchar(20),room_no int);
-   insert into hostel_details values
-   (101,'A','B',200),
-   (102,'B','B',108),
-   (103,'C','A',210),
-   (104,'D','A',110),
-   (105,'Anu','A',150);
 +-----+------+------------+--------+--------+------+
 | id  | name | department | mark1  | mark2  | CGPA |
 +-----+------+------------+--------+--------+------+
@@ -33,6 +32,13 @@ Jenin EXP-1
 
 
 
+2. create table hostel_details(id int primary key, name varchar(30),block varchar(20),room_no int);
+   insert into hostel_details values
+   (101,'A','B',200),
+   (102,'B','B',108),
+   (103,'C','A',210),
+   (104,'D','A',110),
+   (105,'Anu','A',150);
 
 +---------+-------------+------+-----+---------+-------+
 | Field   | Type        | Null | Key | Default | Extra |
@@ -42,8 +48,6 @@ Jenin EXP-1
 | block   | varchar(20) | YES  |     | NULL    |       |
 | room_no | int         | YES  |     | NULL    |       |
 +---------+-------------+------+-----+---------+-------+
-
-
 
 +-----+------+-------+---------+
 | id  | name | block | room_no |
@@ -56,4 +60,69 @@ Jenin EXP-1
 +-----+------+-------+---------+
 
 
+3. select * from student natural join hostel_details;
 
++-----+------+------------+--------+--------+------+-------+---------+
+| id  | name | department | mark1  | mark2  | CGPA | block | room_no |
++-----+------+------------+--------+--------+------+-------+---------+
+| 101 | A    | CS         | 200.00 | 150.00 | 7.21 | B     |     200 |
+| 102 | B    | CS         | 150.00 | 200.00 | 8.21 | B     |     108 |
+| 103 | C    | EC         | 150.00 |  80.00 | 7.00 | A     |     210 |
+| 104 | D    | ME         | 100.00 | 200.00 | 6.29 | A     |     110 |
+| 105 | Anu  | EC         | 150.00 | 180.00 | 7.88 | A     |     150 |
++-----+------+------------+--------+--------+------+-------+---------+
+
+
+4. alter table hostel_details rename to hostel;
+
++-------------------+
+| Tables_in_student |
++-------------------+
+| hostel            |
+| student           |
++-------------------+
+
+
+5. update student set CGPA=8 where id=103;
+
++-----+------+
+| id  | CGPA |
++-----+------+
+| 101 | 7.21 |
+| 102 | 8.21 |
+| 103 | 8.00 |
+| 104 | 6.29 |
+| 105 | 7.88 |
++-----+------+
+
+
+6. select name from student where CGPA>8;
+
++------+
+| name |
++------+
+| B    |
++------+
+
+
+7. select name from student where department='CS';
+
++------+
+| name |
++------+
+| A    |
+| B    |
++------+
+
+
+8. select name from hostel where block='A';
+
++------+
+| name |
++------+
+| C    |
+| D    |
+| Anu  |
++------+
+
+9. 
