@@ -1,0 +1,48 @@
+EXP-2 (Implementation of DML commands)
+
+
+1. create table emp(id varchar(8) check(id like'E%') primary key,name varchar(20),street int,city varchar(20));
+   insert into emp values
+	 ('E101','A',2,'Ernakulam'),
+	 ('E102','B',2,'Ernakulam'),
+	 ('E103','C',1,'Thrissur'),
+	 ('E104','D',1,'Thrissur');
+
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| id     | varchar(8)  | NO   | PRI | NULL    |       |
+| name   | varchar(20) | NO   |     | NULL    |       |
+| street | int         | YES  |     | NULL    |       |
+| city   | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+
++------+------+--------+-----------+
+| id   | name | street | city      |
++------+------+--------+-----------+
+| E101 | A    |      2 | Ernakulam |
+| E102 | B    |      2 | Ernakulam |
+| E103 | C    |      1 | Thrissur  |
+| E104 | D    |      1 | Thrissur  |
++------+------+--------+-----------+
+
+	 create table works(id varchar(8) references emp(id),company varchar(20) references company(cname),salary float(12,2));
+	 insert into works
+	 (),
+
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| id     | varchar(8)  | YES  |     | NULL    |       |
+| cname  | varchar(20) | YES  |     | NULL    |       |
+| salary | float(12,2) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+
++------+-------------+----------+
+| id   | cname       | salary   |
++------+-------------+----------+
+| E101 | SBI         | 30000.00 |
+| E102 | SBI         | 25000.00 |
+| E103 | Indian_Bank | 28000.00 |
+| E104 | Indian_Bank | 23000.00 |
++------+-------------+----------+
