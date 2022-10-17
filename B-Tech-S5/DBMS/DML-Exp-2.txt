@@ -12,7 +12,7 @@ EXP-2 (Implementation of DML commands)
 | Field  | Type        | Null | Key | Default | Extra |
 +--------+-------------+------+-----+---------+-------+
 | id     | varchar(8)  | NO   | PRI | NULL    |       |
-| name   | varchar(20) | NO   |     | NULL    |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
 | street | int         | YES  |     | NULL    |       |
 | city   | varchar(20) | YES  |     | NULL    |       |
 +--------+-------------+------+-----+---------+-------+
@@ -28,7 +28,10 @@ EXP-2 (Implementation of DML commands)
 
 	 create table works(id varchar(8) references emp(id),company varchar(20) references company(cname),salary float(12,2));
 	 insert into works
-	 (),
+	 ('E101','SBI',30000),
+	 ('E102','SBI',25000),
+	 ('E103','Indian_Bank',28000),
+	 ('E104','Indian_Bank',23000);
 
 +--------+-------------+------+-----+---------+-------+
 | Field  | Type        | Null | Key | Default | Extra |
@@ -46,3 +49,66 @@ EXP-2 (Implementation of DML commands)
 | E103 | Indian_Bank | 28000.00 |
 | E104 | Indian_Bank | 23000.00 |
 +------+-------------+----------+
+
+create table company(name varchar(20) primary key,city varchar(20));
+insert into company
+('Indian_Bank','Thrissur'),
+('SBI','Ernakulam');
+
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| name  | varchar(20) | NO   | PRI | NULL    |       |
+| city  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
++-------------+-----------+
+| name        | city      |
++-------------+-----------+
+| Indian_Bank | Thrissur  |
+| SBI         | Ernakulam |
++-------------+-----------+
+
+create table manages(empid varchar(8) references emp(id),manid varchar(8) references emp(id));
+insert int manages
+('E102','E101'),
+('E104','E103');
+
++-------+------------+------+-----+---------+-------+
+| Field | Type       | Null | Key | Default | Extra |
++-------+------------+------+-----+---------+-------+
+| empid | varchar(8) | YES  |     | NULL    |       |
+| manid | varchar(8) | YES  |     | NULL    |       |
++-------+------------+------+-----+---------+-------+
+
++-------+-------+
+| empid | manid |
++-------+-------+
+| E102  | E101  |
+| E104  | E103  |
++-------+-------+
+
+
+2. alter table emp modify name varchar(20) NOT NULL;
+
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| id     | varchar(8)  | NO   | PRI | NULL    |       |
+| name   | varchar(20) | NO   |     | NULL    |       |
+| street | int         | YES  |     | NULL    |       |
+| city   | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+
+
+3. select e.name from emp e,works w where e.id=w.id and w.cname='SBI';
+
++------+
+| name |
++------+
+| A    |
+| B    |
++------+
+
+
+4. 
