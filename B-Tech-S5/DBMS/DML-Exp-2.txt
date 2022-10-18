@@ -111,4 +111,79 @@ insert int manages
 +------+
 
 
-4. 
+4. select e.name from emp e,works w,company c where e.city=c.city and e.id=w.id;
+
++------+
+| name |
++------+
+| A    |
+| B    |
+| C    |
+| D    |
++------+
+
+
+5. select e1.name as Employee,e2.name as Manager from emp e1,emp e2,manages m where e1.id=m.empid and e2.id=m.manid and e1.street=e2.street and e1.city=e2.city;
+
++----------+---------+
+| Employee | Manager |
++----------+---------+
+| B        | A       |
+| D        | C       |
++----------+---------+
+
+
+6. select e.name from emp e,works w where w.salary>(select avg(salary) from works) and e.id=w.id;
+
++------+
+| name |
++------+
+| A    |
+| C    |
++------+
+
+
+7. select cname,salary from works where salary=(select min(salary) from works);
+
++-------------+----------+
+| cname       | salary   |
++-------------+----------+
+| Indian_Bank | 23000.00 |
++-------------+----------+
+
+
+8. update works set salary=salary+salary*0.1 where cname='SBI';
+
++------+----------+
+| id   | salary   |
++------+----------+
+| E101 | 33000.00 |
+| E102 | 27500.00 |
++------+----------+
+
+9. select cname from works group by cname having count(distinct id)>=all(select count(distinct id) from works group by cname);
+
++-------------+
+| cname       |
++-------------+
+| Indian_Bank |
+| SBI         |
++-------------+
+
+
+10. select cname from works group by cname having avg(salary)>(select avg(salary) from works where cname='Indian_Bank');
+
++-------+
+| cname |
++-------+
+| SBI   |
++-------+
+
+
+11. select e.name,w.salary from emp e,works w where e.id=w.id and salary>(select max(salary) from works where cname='Indian_Bank');
+
++------+----------+
+| name | salary   |
++------+----------+
+| A    | 33000.00 |
++------+----------+
