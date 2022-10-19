@@ -1,0 +1,161 @@
+EXP-3 Built in Functions
+
+1. create database bank.
+   create table account with fields [Account number, IFSC code, Bank name, Bank branch, Account type, Account balance].
+	 Do the following queries:
+	 (1) Implement character string functions like upper,lower,length,replace with value of attribute "Bank-name"
+	 (2) Implement numeric functions like round,ceil,floor,sign with values of attribute "Account number" or "Account balance"
+
+-> create table account( accNo int primary key, IFSC varchar(20), bank varchar(20), branch varchar(20), accType varchar(20), balance float(12,2));
+
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| accNo   | int         | NO   | PRI | NULL    |       |
+| IFSC    | varchar(20) | YES  |     | NULL    |       |
+| bank    | varchar(20) | YES  |     | NULL    |       |
+| branch  | varchar(20) | YES  |     | NULL    |       |
+| accType | varchar(20) | YES  |     | NULL    |       |
+| balance | float(12,2) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+-> insert into account values(11000,'CNR101','Canara','Kakkanad','Savings',38800.24), (51003,'AXI231','Axis','Edapally','Savings',25075.84), (31000,'PNB155','PNB','Paravour','Savings',40000.54), (21020,'SBI104','SBI','Aluva','Savings',1500.45);
+
++-------+--------+--------+----------+---------+----------+
+| accNo | IFSC   | bank   | branch   | accType | balance  |
++-------+--------+--------+----------+---------+----------+
+| 11000 | CNR101 | Canara | Kakkanad | Savings | 38800.24 |
+| 21020 | SBI104 | SBI    | Aluva    | Savings |  1500.45 |
+| 31000 | PNB155 | PNB    | Paravour | Savings | 40000.54 |
+| 51003 | AXI231 | Axis   | Edapally | Savings | 25075.84 |
++-------+--------+--------+----------+---------+----------+
+
+-> select upper(bank) as Bank_name from account;
+
++-----------+
+| Bank_name |
++-----------+
+| CANARA    |
+| SBI       |
+| PNB       |
+| AXIS      |
++-----------+
+
+-> select lower(bank) as Bank_name from account;
+
++-----------+
+| Bank_name |
++-----------+
+| canara    |
+| sbi       |
+| pnb       |
+| axis      |
++-----------+
+
+-> select length(bank) as Bank_name from account;
+
++-----------+
+| Bank_name |
++-----------+
+|         6 |
+|         3 |
+|         3 |
+|         4 |
++-----------+
+
+-> select round(balance) as Balance from account;
+
++---------+
+| Balance |
++---------+
+|   38800 |
+|    1500 |
+|   40001 |
+|   25076 |
++---------+
+
+-> select ceil(balance) as Balance from account;
+
++---------+
+| Balance |
++---------+
+|   38801 |
+|    1501 |
+|   40001 |
+|   25076 |
++---------+
+
+-> select floor(balance) as Balance from account;
+
++---------+
+| Balance |
++---------+
+|   38800 |
+|    1500 |
+|   40000 |
+|   25075 |
++---------+
+
+-> select sign(accNo) as Account_No from account
+
++------------+
+| Account_No |
++------------+
+|          1 |
+|          1 |
+|          1 |
+|          1 |
++------------+
+
+
+2. Implement data functions like current date and sysdate, extract month from date, extract year from date.
+
+-> select current_date();
+
++----------------+
+| current_date() |
++----------------+
+| 2022-10-12     |
++----------------+
+
+-> select sysdate();
+
++---------------------+
+| sysdate()           |
++---------------------+
+| 2022-10-12 13:57:34 |
++---------------------+
+
+-> select month('2022-10-12') as month;
+
++-------+
+| month |
++-------+
+|    10 |
++-------+
+
+-> select year('2022-10-12') as year;
+
++------+
+| year |
++------+
+| 2022 |
++------+
+
+
+3. Implement string function "ascii" to any english alphabets. compute the ascii value of minimum of 5 alphabets.
+
+-> create table alpha(Alphabet varchar(3));
+-> insert into alpha values('A'),('b'),('C'),('F'),('z');
+
+-> select Alphabet,ascii(Alphabet) as ascii from alpha;
+
++----------+-------+
+| Alphabet | ascii |
++----------+-------+
+| A        |    65 |
+| b        |    98 |
+| C        |    67 |
+| F        |    70 |
+| z        |   122 |
++----------+-------+
