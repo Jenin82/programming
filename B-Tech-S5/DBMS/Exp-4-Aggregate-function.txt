@@ -1,0 +1,67 @@
+EXP-4 Aggregate Functions
+
+create dtabase college
+create the tables with following fields
+Faculty(Faculty code,Faculty name)
+subject(subject code,subject name,max marks,faculty code)
+student(student code,student name,DOB,student branch,admission date)
+
+-> create table faculty( fcode int primary key,name varchar(20));
+
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| fcode | int         | NO   | PRI | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
+-> insert into faculty values (101,'A'), (102,'B'), (103,'C');
+
++-------+------+
+| fcode | name |
++-------+------+
+|   101 | A    |
+|   102 | B    |
+|   103 | C    |
++-------+------+
+
+-> create table subject(scode varchar(20) primary key, sname varchar(20), max_marks int, fcode int references faculty(fcode));
+
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| scode     | varchar(20) | NO   | PRI | NULL    |       |
+| sname     | varchar(20) | YES  |     | NULL    |       |
+| max_marks | int         | YES  |     | NULL    |       |
+| fcode     | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+
+-> insert into subject values('MAT101','Maths',200,101),('BIO110','Biology',100,102), ('CHM286','Chemistry',150,103),('PHY100','Physics',180,101);
+
++--------+-----------+-----------+-------+
+| scode  | sname     | max_marks | fcode |
++--------+-----------+-----------+-------+
+| BIO110 | Biology   |       100 |   102 |
+| CHM286 | Chemistry |       150 |   103 |
+| MAT101 | Maths     |       200 |   101 |
+| PHY100 | Physics   |       180 |   101 |
++--------+-----------+-----------+-------+
+
+-> create table student(id int primary key,name varchar(20),DOB date,branch varchar(20),admission date);
+
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| id        | int         | NO   | PRI | NULL    |       |
+| name      | varchar(20) | YES  |     | NULL    |       |
+| DOB       | date        | YES  |     | NULL    |       |
+| branch    | varchar(20) | YES  |     | NULL    |       |
+| admission | date        | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+
+
+do the following queries:
+
+1. Display the number of faculties
+
+-> 
