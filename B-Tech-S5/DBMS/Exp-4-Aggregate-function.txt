@@ -59,9 +59,78 @@ student(student code,student name,DOB,student branch,admission date)
 | admission | date        | YES  |     | NULL    |       |
 +-----------+-------------+------+-----+---------+-------+
 
+-> insert into student values (1001,'Anu','2002-12-23','CSE','2020-06-13'), (1002,'Arun','2002-10-13','ME','2020-06-13'), (1003,'B','2002-07-09','CE','2020-06-13'), (1004,'C','2002-03-12','CSE','2020-06-13');
+
++------+------+------------+--------+------------+
+| id   | name | DOB        | branch | admission  |
++------+------+------------+--------+------------+
+| 1001 | Anu  | 2002-12-23 | CSE    | 2020-06-13 |
+| 1002 | Arun | 2002-10-13 | ME     | 2020-06-13 |
+| 1003 | B    | 2002-07-09 | CE     | 2020-06-13 |
+| 1004 | C    | 2002-03-12 | CSE    | 2020-06-13 |
++------+------+------------+--------+------------+
 
 do the following queries:
 
+
 1. Display the number of faculties
+
+-> select count(fcode) as Faculty_count from faculty;
+
++---------------+
+| Faculty_count |
++---------------+
+|             3 |
++---------------+
+
+
+2. Display the details of students with name starting with A.
+
+-> select * from student where name like 'A%';
+
++------+------+------------+--------+------------+
+| id   | name | DOB        | branch | admission  |
++------+------+------------+--------+------------+
+| 1001 | Anu  | 2002-12-23 | CSE    | 2020-06-13 |
+| 1002 | Arun | 2002-10-13 | ME     | 2020-06-13 |
++------+------+------------+--------+------------+
+
+
+3. Display the total number of records in the student table.
+
+-> select count(id) as Student_count from student;
+
++---------------+
+| Student_count |
++---------------+
+|             4 |
++---------------+
+
+4. Find the number of branches availiable in student table.
+
+-> select count(distinct branch) as Branch from student;
+
++--------+
+| Branch |
++--------+
+|      3 |
++--------+
+
+
+5. Display the faculties and alloted subjects for each faculty.
+
+-> select f.name,s.sname from subject s,faculty f where s.fcode=f.fcode;
+
++------+-----------+
+| name | sname     |
++------+-----------+
+| B    | Biology   |
+| C    | Chemistry |
+| A    | Maths     |
+| A    | Physics   |
++------+-----------+
+
+
+6. Display the name of faculties who take more than one subject.
 
 -> 
