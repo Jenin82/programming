@@ -131,6 +131,40 @@ do the following queries:
 +------+-----------+
 
 
-6. Display the name of faculties who take more than one subject.
+6. Display the names of facultieswho take more than one subject.
 
--> 
+-> select name from faculty where fcode in (select fcode from subject group by fcode having count(*)>1);
+
++------+
+| name |
++------+
+| A    |
++------+
+
+
+7. Display the subject name and marks in ascending order of marks.
+
+-> select sname,max_marks from subject order by max_marks asc;
+
++-----------+-----------+
+| sname     | max_marks |
++-----------+-----------+
+| Biology   |       100 |
+| Chemistry |       150 |
+| Physics   |       180 |
+| Maths     |       200 |
++-----------+-----------+
+
+
+8. Rename the column of max_marks as Maximun.
+
+-> alter table subject rename column max_marks to Maximum;
+
++--------+-----------+---------+-------+
+| scode  | sname     | Maximum | fcode |
++--------+-----------+---------+-------+
+| BIO110 | Biology   |     100 |   102 |
+| CHM286 | Chemistry |     150 |   103 |
+| MAT101 | Maths     |     200 |   101 |
+| PHY100 | Physics   |     180 |   101 |
++--------+-----------+---------+-------+
