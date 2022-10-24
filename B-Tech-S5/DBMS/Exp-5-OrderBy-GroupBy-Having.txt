@@ -6,7 +6,6 @@ Emp(emp-no,name,job,salary,hire date,commission,Department no.)
 manager id is the emp-no of the employee whom the emplyee reports to. Department no. is a foreign key. Insert values into the tables.
 
 -> create table Depart(id int primary key,department varchar(20),manager int references Emp(id),location varchar(20));
-
 +------------+-------------+------+-----+---------+-------+
 | Field      | Type        | Null | Key | Default | Extra |
 +------------+-------------+------+-----+---------+-------+
@@ -16,19 +15,17 @@ manager id is the emp-no of the employee whom the emplyee reports to. Department
 | location   | varchar(20) | YES  |     | NULL    |       |
 +------------+-------------+------+-----+---------+-------+
 
--> Depart values (102,'ME',11,'floor-0'),(103,'CE',12,'floor-2'),(101,'CSE',10,'floor-3'),(104,'EEE',null,'floor-4');
-
-+-----+------------+---------+----------+
-| id  | department | manager | location |
-+-----+------------+---------+----------+
-| 101 | CSE        |      10 | floor-3  |
-| 102 | ME         |      11 | floor-0  |
-| 103 | CE         |      12 | floor-2  |
-| 104 | EEE        |    NULL | floor-4  |
-+-----+------------+---------+----------+
+-> Depart values (2,'ME',11,'floor-0'),(3,'CE',12,'floor-2'),(1,'CSE',10,'floor-3'),(4,'EEE',null,'floor-4');
++----+------------+---------+----------+
+| id | department | manager | location |
++----+------------+---------+----------+
+|  1 | CSE        |      10 | floor-3  |
+|  2 | ME         |      11 | floor-0  |
+|  3 | CE         |      12 | floor-2  |
+|  4 | EEE        |    NULL | floor-4  |
++----+------------+---------+----------+
 
 -> Emp(id int primary key,name varchar(20),job varchar(20),salary float(12,2),hdate date,comm float(12,2),did int references Depart(id));
-
 +--------+-------------+------+-----+---------+-------+
 | Field  | Type        | Null | Key | Default | Extra |
 +--------+-------------+------+-----+---------+-------+
@@ -41,23 +38,21 @@ manager id is the emp-no of the employee whom the emplyee reports to. Department
 | did    | int         | YES  |     | NULL    |       |
 +--------+-------------+------+-----+---------+-------+
 
--> insert into Emp values(13,'D','Driver',2000,'1994-10-18',5000,104),(10,'A','Manager',40000,'1993-06-28',5000,101), (11,'B','Manager',35000,'1991-11-14',1000,102),(12,'C','Manager',32000,'1996-07-03',4000,103),(14,'E','Gardener',4500,'1998-12-12',7000,104);
-
+-> insert into Emp values(13,'D','Driver',2000,'1994-10-18',5000,4),(10,'A','Manager',40000,'1993-06-28',5000,1),(15,'F','Teacher',11000,'2002-07-15',null,2),(11,'B','Manager',35000,'1991-11-14',1000,2),(12,'C','Manager',32000,'1996-07-03',4000,3),(14,'E','Gardener',4500,'1998-12-12',7000,4);
 +----+------+----------+----------+------------+---------+------+
 | id | name | job      | salary   | hdate      | comm    | did  |
 +----+------+----------+----------+------------+---------+------+
-| 10 | A    | Manager  | 40000.00 | 1993-06-28 | 5000.00 |  101 |
-| 11 | B    | Manager  | 35000.00 | 1991-11-14 | 1000.00 |  102 |
-| 12 | C    | Manager  | 32000.00 | 1996-07-03 | 4000.00 |  103 |
-| 13 | D    | Driver   |  2000.00 | 1994-10-18 | 5000.00 |  104 |
-| 14 | E    | Gardener |  4500.00 | 1998-12-12 | 7000.00 |  104 |
+| 10 | A    | Manager  | 40000.00 | 1993-06-28 | 5000.00 |    1 |
+| 11 | B    | Manager  | 35000.00 | 1991-11-14 | 1000.00 |    2 |
+| 12 | C    | Manager  | 32000.00 | 1996-07-03 | 4000.00 |    3 |
+| 13 | D    | Driver   |  2000.00 | 1994-10-18 | 5000.00 |    4 |
+| 14 | E    | Gardener |  4500.00 | 1998-12-12 | 7000.00 |    4 |
+| 15 | F    | Teacher  | 11000.00 | 2002-07-15 |    NULL |    2 |
 +----+------+----------+----------+------------+---------+------+
-
 
 1. Display the name and salary for all employee whose salary is not in the range of 5000 and 35000;
 
 -> select name,salary from Emp where salary not between 5000 and 35000;
-
 +------+----------+
 | name | salary   |
 +------+----------+
@@ -70,7 +65,6 @@ manager id is the emp-no of the employee whom the emplyee reports to. Department
 2. Display the employee name, job ID and start date of employees hired between february 20,1990 and May 1,1998. Order the query in ascending order by start date
 
 -> select name,job,hdate from Emp where hdate between '1990-02-20' and '1998-05-01' order by hdate asc;
-
 +------+---------+------------+
 | name | job     | hdate      |
 +------+---------+------------+
@@ -81,4 +75,50 @@ manager id is the emp-no of the employee whom the emplyee reports to. Department
 +------+---------+------------+
 
 
-3. 
+3. List the name and salary of employees who earn between 5000 and 12000 and are in department 2 0r 4. Label the columns Employee and Monthly Salary respectively.
+
+-> select name as Employee,salary as Monthly_Salary from Emp where salary between 5000 and 12000 and did in (2,3);
++----------+----------------+
+| Employee | Monthly_Salary |
++----------+----------------+
+| F        |       11000.00 |
++----------+----------------+
+
+
+4. Display names and hire date of every employee who was hired in 1994.
+
+-> select name,hdate from Emp where hdate like'1994%';
++------+------------+
+| name | hdate      |
++------+------------+
+| D    | 1994-10-18 |
++------+------------+
+
+
+5. Display the name,salary and commission for all employees who earn commissions. Sort data in descending order of salary and commissions.
+
+-> select name,salary,comm from Emp where comm>0 order by salary desc,comm desc;
++------+----------+---------+
+| name | salary   | comm    |
++------+----------+---------+
+| A    | 40000.00 | 5000.00 |
+| B    | 35000.00 | 1000.00 |
+| C    | 32000.00 | 4000.00 |
+| E    |  4500.00 | 7000.00 |
+| D    |  2000.00 | 5000.00 |
++------+----------+---------+
+
+
+6. Display the name and job title of all employees who do not have a manager.
+
+-> select name,job from Emp e,Depart d where e.did=d.id and d.manager is null;
++------+----------+
+| name | job      |
++------+----------+
+| D    | Driver   |
+| E    | Gardener |
++------+----------+
+
+7. Display the name of all employee where the third letter of the name is a an a.
+
+-> 
