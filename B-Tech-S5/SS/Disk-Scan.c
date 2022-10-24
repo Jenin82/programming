@@ -25,8 +25,8 @@ void main() {
       x++;
   sum+=cy-ch;
   sum+=cy-req[0];
-  printf("Total = %d cylinders\n",sum);
-  
+  printf("Total seek time = %d cylinders\n",sum);
+  //Direction not required for record 
   printf("Direction\n%d -> ",ch);
   for(i=x;i<n;i++)
     printf("%d -> ",req[i]);

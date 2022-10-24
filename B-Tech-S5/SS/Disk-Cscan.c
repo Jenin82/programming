@@ -26,5 +26,5 @@ void main() {
   sum+=cy-ch;
   sum+=cy;
   sum+=req[x-1];
-  printf("Total = %d cylinders\n",sum);
+  printf("Total seek time = %d cylinders\n",sum);
 }
