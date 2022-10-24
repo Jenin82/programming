@@ -1,0 +1,84 @@
+EXP-5 Implementation of Order by, Group by and Having clause
+
+create two tables
+Depart(Department ID,Department name,manager id,loc)
+Emp(emp-no,name,job,salary,hire date,commission,Department no.)
+manager id is the emp-no of the employee whom the emplyee reports to. Department no. is a foreign key. Insert values into the tables.
+
+-> create table Depart(id int primary key,department varchar(20),manager int references Emp(id),location varchar(20));
+
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| id         | int         | NO   | PRI | NULL    |       |
+| department | varchar(20) | YES  |     | NULL    |       |
+| manager    | int         | YES  |     | NULL    |       |
+| location   | varchar(20) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+
+-> Depart values (102,'ME',11,'floor-0'),(103,'CE',12,'floor-2'),(101,'CSE',10,'floor-3'),(104,'EEE',null,'floor-4');
+
++-----+------------+---------+----------+
+| id  | department | manager | location |
++-----+------------+---------+----------+
+| 101 | CSE        |      10 | floor-3  |
+| 102 | ME         |      11 | floor-0  |
+| 103 | CE         |      12 | floor-2  |
+| 104 | EEE        |    NULL | floor-4  |
++-----+------------+---------+----------+
+
+-> Emp(id int primary key,name varchar(20),job varchar(20),salary float(12,2),hdate date,comm float(12,2),did int references Depart(id));
+
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| id     | int         | NO   | PRI | NULL    |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
+| job    | varchar(20) | YES  |     | NULL    |       |
+| salary | float(12,2) | YES  |     | NULL    |       |
+| hdate  | date        | YES  |     | NULL    |       |
+| comm   | float(12,2) | YES  |     | NULL    |       |
+| did    | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+
+-> insert into Emp values(13,'D','Driver',2000,'1994-10-18',5000,104),(10,'A','Manager',40000,'1993-06-28',5000,101), (11,'B','Manager',35000,'1991-11-14',1000,102),(12,'C','Manager',32000,'1996-07-03',4000,103),(14,'E','Gardener',4500,'1998-12-12',7000,104);
+
++----+------+----------+----------+------------+---------+------+
+| id | name | job      | salary   | hdate      | comm    | did  |
++----+------+----------+----------+------------+---------+------+
+| 10 | A    | Manager  | 40000.00 | 1993-06-28 | 5000.00 |  101 |
+| 11 | B    | Manager  | 35000.00 | 1991-11-14 | 1000.00 |  102 |
+| 12 | C    | Manager  | 32000.00 | 1996-07-03 | 4000.00 |  103 |
+| 13 | D    | Driver   |  2000.00 | 1994-10-18 | 5000.00 |  104 |
+| 14 | E    | Gardener |  4500.00 | 1998-12-12 | 7000.00 |  104 |
++----+------+----------+----------+------------+---------+------+
+
+
+1. Display the name and salary for all employee whose salary is not in the range of 5000 and 35000;
+
+-> select name,salary from Emp where salary not between 5000 and 35000;
+
++------+----------+
+| name | salary   |
++------+----------+
+| A    | 40000.00 |
+| D    |  2000.00 |
+| E    |  4500.00 |
++------+----------+
+
+
+2. Display the employee name, job ID and start date of employees hired between february 20,1990 and May 1,1998. Order the query in ascending order by start date
+
+-> select name,job,hdate from Emp where hdate between '1990-02-20' and '1998-05-01' order by hdate asc;
+
++------+---------+------------+
+| name | job     | hdate      |
++------+---------+------------+
+| B    | Manager | 1991-11-14 |
+| A    | Manager | 1993-06-28 |
+| D    | Driver  | 1994-10-18 |
+| C    | Manager | 1996-07-03 |
++------+---------+------------+
+
+
+3. 
