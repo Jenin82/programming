@@ -96,7 +96,7 @@ EXP-3 Built in Functions
 |   25075 |
 +---------+
 
--> select sign(accNo) as Account_No from account
+-> select sign(accNo) as Account_No from account;
 
 +------------+
 | Account_No |
