@@ -15,7 +15,7 @@ manager id is the emp-no of the employee whom the emplyee reports to. Department
 | location   | varchar(20) | YES  |     | NULL    |       |
 +------------+-------------+------+-----+---------+-------+
 
--> Depart values (2,'ME',11,'floor-0'),(3,'CE',12,'floor-2'),(1,'CSE',10,'floor-3'),(4,'EEE',null,'floor-4');
+-> insert into Depart values (2,'ME',11,'floor-0'),(3,'CE',12,'floor-2'),(1,'CSE',10,'floor-3'),(4,'EEE',null,'floor-4');
 +----+------------+---------+----------+
 | id | department | manager | location |
 +----+------------+---------+----------+
@@ -25,7 +25,7 @@ manager id is the emp-no of the employee whom the emplyee reports to. Department
 |  4 | EEE        |    NULL | floor-4  |
 +----+------------+---------+----------+
 
--> Emp(id int primary key,name varchar(20),job varchar(20),salary float(12,2),hdate date,comm float(12,2),did int references Depart(id));
+-> create table Emp(id int primary key,name varchar(20),job varchar(20),salary float(12,2),hdate date,comm float(12,2),did int references Depart(id));
 +--------+-------------+------+-----+---------+-------+
 | Field  | Type        | Null | Key | Default | Extra |
 +--------+-------------+------+-----+---------+-------+
@@ -150,12 +150,8 @@ manager id is the emp-no of the employee whom the emplyee reports to. Department
 +------+-------------+---------+
 
 
+
 10. 
-
--> 
-
-
-11. 
 
 -> select e.name,d.id,d.department from Depart d,Emp e where e.did=d.id;
 +------+----+------------+
@@ -170,7 +166,7 @@ manager id is the emp-no of the employee whom the emplyee reports to. Department
 +------+----+------------+
 
 
-12. 
+11. 
 
 -> select job,count(job) from Emp group by job having count(*)>1;
 +---------+------------+
@@ -180,16 +176,49 @@ manager id is the emp-no of the employee whom the emplyee reports to. Department
 +---------+------------+
 
 
+12. 
+
+-> select d.manager,min(e.salary) "m",d.department from Depart d,Emp e where e.did=d.id and d.manager is not null group by d.manager,d.id having min(salary)>6000 order by m desc;
++---------+----------+------------+
+| manager | minimum  | department |
++---------+----------+------------+
+|      10 | 40000.00 | CSE        |
+|      12 | 32000.00 | CE         |
+|      11 | 11000.00 | ME         |
++---------+----------+------------+
+
+
 13. 
 
--> 
+-> select d.department "Name",d.location "Location",count(e.id) "No_of_People",round(avg(salary),2) "Salary" from Depart d,Emp e where d.id=e.did
+group by d.department,d.location;
++------+----------+--------------+--------+
+| Name | Location | No_of_People | Salary |
++------+----------+--------------+--------+
+| CSE  | floor-3  |            1 |  40000 |
+| ME   | floor-0  |            2 |  23000 |
+| CE   | floor-2  |            1 |  32000 |
+| EEE  | floor-4  |            2 |   3250 |
++------+----------+--------------+--------+
+
 
 
 14. 
 
--> 
+-> select name,hdate from Emp where did=(select did from Emp where name='B') and name!='D';
++------+------------+
+| name | hdate      |
++------+------------+
+| B    | 1991-11-14 |
+| Fau  | 2002-07-15 |
++------+------------+
+
 
 15. 
 
-
-16. 
+-> select id,name from Emp where did=(select did from Emp where name like '%u%') and id not in(select id from Emp where name like '%u%');
++----+------+
+| id | name |
++----+------+
+| 11 | B    |
++----+------+
