@@ -101,4 +101,26 @@ EXP-6 Implementation of set operations, nested queries and join queries
 | 5005 |         3 |
 +------+-----------+
 
+1. 
+-> select m.title from movies m,director d where m.did=d.id and d.name='Hitch_Cock';
++-------+
+| title |
++-------+
+| L     |
+| O     |
++-------+
+
+
+2. 
 -> 
+
+
+3.
+-> select name from actor where id in(select aid from movie_cast where mid in(select id from movies where id in(select id from movies where year not between 2000 and 2015 )));
++------+
+| name |
++------+
+| A    |
+| B    |
+| C    |
++------+
