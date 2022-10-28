@@ -1,0 +1,104 @@
+EXP-6 Implementation of set operations, nested queries and join queries
+
+
+
+-> create table actor(id int primary key,name varchar(20),gender varchar(20));
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| id     | int         | NO   | PRI | NULL    |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
+| gender | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+
+-> insert into actor values(1001,'A','M'),(1002,'B','F'),(1003,'C','M'),(1004,'D','F');
++------+------+--------+
+| id   | name | gender |
++------+------+--------+
+| 1001 | A    | M      |
+| 1002 | B    | F      |
+| 1003 | C    | M      |
+| 1004 | D    | F      |
++------+------+--------+
+
+-> create table director(id int primary key,name varchar(20),ph_number long);
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| id        | int         | NO   | PRI | NULL    |       |
+| name      | varchar(20) | YES  |     | NULL    |       |
+| ph_number | mediumtext  | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+
+-> insert into director values(101,'Hitch_Cock',1234567890),(102,'Steven_Spielberg',9988776655),(103,'Mr_X',8457562103);
++-----+------------------+------------+
+| id  | name             | ph_number  |
++-----+------------------+------------+
+| 101 | Hitch_Cock       | 1234567890 |
+| 102 | Steven_Spielberg | 9988776655 |
+| 103 | Mr_X             | 8457562103 |
++-----+------------------+------------+
+
+-> create table movies(id int primary key,title varchar(20),year int,language varchar(20),did int references director(id));
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| id       | int         | NO   | PRI | NULL    |       |
+| title    | varchar(20) | YES  |     | NULL    |       |
+| year     | int         | YES  |     | NULL    |       |
+| language | varchar(20) | YES  |     | NULL    |       |
+| did      | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+-> insert into movies values(5001,'L',1999,'English',101),(5002,'M',2016,'English',102),(5003,'N',2012,'Malayalam',103),(5004,'O',2009,'English',101),(5005,'P',2013,'English',102);
++------+-------+------+-----------+------+
+| id   | title | year | language  | did  |
++------+-------+------+-----------+------+
+| 5001 | L     | 1999 | English   |  101 |
+| 5002 | M     | 2016 | English   |  102 |
+| 5003 | N     | 2012 | Malayalam |  103 |
+| 5004 | O     | 2009 | English   |  101 |
+| 5005 | P     | 2013 | English   |  102 |
++------+-------+------+-----------+------+
+
+-> create table movie_cast(aid int references actor(id),mid int references movies(id),role varchar(20));
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| aid   | int         | YES  |     | NULL    |       |
+| mid   | int         | YES  |     | NULL    |       |
+| role  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
+-> insert into movie_cast values(1001,5001,'Hero'),(1002,5001,'Villan'),(1001,5002,'Hero'),(1003,5002,'Villan'),(1004,5003,'Hero'),(1003,5005,'Villan');
++------+------+--------+
+| aid  | mid  | role   |
++------+------+--------+
+| 1001 | 5001 | Hero   |
+| 1002 | 5001 | Villan |
+| 1001 | 5002 | Hero   |
+| 1003 | 5002 | Villan |
+| 1004 | 5003 | Hero   |
+| 1003 | 5005 | Villan |
++------+------+--------+
+
+-> create table rating(mid int references movies(id),rev_stars int);
++-----------+------+------+-----+---------+-------+
+| Field     | Type | Null | Key | Default | Extra |
++-----------+------+------+-----+---------+-------+
+| mid       | int  | YES  |     | NULL    |       |
+| rev_stars | int  | YES  |     | NULL    |       |
++-----------+------+------+-----+---------+-------+
+
+-> insert into rating values(5001,3),(5002,4),(5003,2),(5004,1),(5005,3);
++------+-----------+
+| mid  | rev_stars |
++------+-----------+
+| 5001 |         3 |
+| 5002 |         4 |
+| 5003 |         2 |
+| 5004 |         1 |
+| 5005 |         3 |
++------+-----------+
+
+-> 
