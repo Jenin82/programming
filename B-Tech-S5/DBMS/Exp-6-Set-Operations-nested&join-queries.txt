@@ -1,6 +1,11 @@
 EXP-6 Implementation of set operations, nested queries and join queries
 
-
+Consider the schema for the Movie Database.
+ACTOR(Act_id, Act_Name, Act_Geander)
+DIRECTOR(Dir_id, Dir_Name, Dir_Phone)
+MOVIES(Mov_id, Mov_Title, Mov_Year, Mov_Lang, Dir_id)
+MOVIE_CAST(Act_id, Mov_id, Role)
+RATING(Mov_id, Rev_Stars)
 
 -> create table actor(id int primary key,name varchar(20),gender varchar(20));
 +--------+-------------+------+-----+---------+-------+
@@ -101,8 +106,10 @@ EXP-6 Implementation of set operations, nested queries and join queries
 | 5005 |         3 |
 +------+-----------+
 
+Write queries to:
 
-1.
+
+1. List the title of all movies directed by 'Hitch Cock'.
  
 -> select m.title from movies m,director d where m.did=d.id and d.name='Hitch_Cock';
 +-------+
@@ -113,7 +120,7 @@ EXP-6 Implementation of set operations, nested queries and join queries
 +-------+
 
 
-2. 
+2. Find the movie names where one or more actors acted in two or movies.
 
 -> select title from movies m,movie_cast mc where m.id=mc.mid and aid in(select aid from movie_cast group by aid having count(id>0)) group by title having count(*)>1;
 +-------+
@@ -124,7 +131,7 @@ EXP-6 Implementation of set operations, nested queries and join queries
 +-------+
 
 
-3.
+3. List all actors who acted in a movie before 2000 or in a movie after 2015 (use JOIN operation)
 
 -> select name from actor where id in(select aid from movie_cast where mid in(select id from movies where year not between 2000 and 2015));
 +------+
@@ -136,7 +143,7 @@ EXP-6 Implementation of set operations, nested queries and join queries
 +------+
 
 
-5. 
+4. Update rating of all movies directed by 'Steven Spielberg' to 5.
 
 -> select m.title,max(r.rev_stars) from rating r,movies m where m.id=r.mid group by m.title having max(r.rev_stars)>0 order by m.title;
 +-------+------------------+
@@ -150,8 +157,7 @@ EXP-6 Implementation of set operations, nested queries and join queries
 +-------+------------------+
 
 
-
-4. 
+5. Find the title of movies and number of stars for each movie that has atleast one rating and find the highest number of stars that movie received. Sort the result by movie title. 
 
 -> update rating set rev_stars=5 where mid in(select id from movies where did=(select id from director where name='Steven_Spielberg'));
 +------+-----------+
