@@ -101,7 +101,9 @@ EXP-6 Implementation of set operations, nested queries and join queries
 | 5005 |         3 |
 +------+-----------+
 
-1. 
+
+1.
+ 
 -> select m.title from movies m,director d where m.did=d.id and d.name='Hitch_Cock';
 +-------+
 | title |
@@ -112,11 +114,19 @@ EXP-6 Implementation of set operations, nested queries and join queries
 
 
 2. 
--> 
+
+-> select title from movies m,movie_cast mc where m.id=mc.mid and aid in(select aid from movie_cast group by aid having count(id>0)) group by title having count(*)>1;
++-------+
+| title |
++-------+
+| L     |
+| M     |
++-------+
 
 
 3.
--> select name from actor where id in(select aid from movie_cast where mid in(select id from movies where id in(select id from movies where year not between 2000 and 2015 )));
+
+-> select name from actor where id in(select aid from movie_cast where mid in(select id from movies where year not between 2000 and 2015));
 +------+
 | name |
 +------+
@@ -124,3 +134,32 @@ EXP-6 Implementation of set operations, nested queries and join queries
 | B    |
 | C    |
 +------+
+
+
+5. 
+
+-> select m.title,max(r.rev_stars) from rating r,movies m where m.id=r.mid group by m.title having max(r.rev_stars)>0 order by m.title;
++-------+------------------+
+| title | max(r.rev_stars) |
++-------+------------------+
+| L     |                3 |
+| M     |                5 |
+| N     |                2 |
+| O     |                1 |
+| P     |                5 |
++-------+------------------+
+
+
+
+4. 
+
+-> update rating set rev_stars=5 where mid in(select id from movies where did=(select id from director where name='Steven_Spielberg'));
++------+-----------+
+| mid  | rev_stars |
++------+-----------+
+| 5001 |         3 |
+| 5002 |         5 |
+| 5003 |         2 |
+| 5004 |         1 |
+| 5005 |         5 |
++------+-----------+
