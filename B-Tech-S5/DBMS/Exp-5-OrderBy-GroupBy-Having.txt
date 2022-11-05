@@ -1,5 +1,8 @@
 EXP-5 Implementation of Order by, Group by and Having clause
 
+AIM:
+
+
 create two tables
 Depart(Department ID,Department name,manager id,loc)
 Emp(emp-no,name,job,salary,hire date,commission,Department no.)
