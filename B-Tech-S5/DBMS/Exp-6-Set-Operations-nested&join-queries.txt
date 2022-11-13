@@ -120,7 +120,7 @@ Write queries to:
 +-------+
 
 
-2. Find the movie names where one or more actors acted in two or movies.
+2. Find the movie names where one or more actors acted in two or more movies.
 
 -> select title from movies m,movie_cast mc where m.id=mc.mid and aid in(select aid from movie_cast group by aid having count(id>0)) group by title having count(*)>1;
 +-------+
