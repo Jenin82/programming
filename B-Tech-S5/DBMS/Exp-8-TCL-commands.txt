@@ -1,6 +1,13 @@
 EXP-8 TCL Commands
 
-1. 
+Aim:
+To practice and implement the SQL and TCL commands like rollback, commit and savepoint.
+
+Program:
+
+1. Consider the following table namely "Employee" with schema as follows.
+Attributes of the table - Employee id, employee name, designation, department-no, employee salary.
+Insert 5 values into database and create a savepoint named 's'. 
 
 -> create table emp(id int primary key,name varchar(20),designation varchar(20),dept int,salary float(12,2));
 +-------------+-------------+------+-----+---------+-------+
@@ -27,7 +34,7 @@ EXP-8 TCL Commands
 -> savepoint s;
 
 
-2. 
+2. In the existing database add 1 row extra and then display the results on execution of rollback and commit commands.
 
 -> set autocommit=0;
 
