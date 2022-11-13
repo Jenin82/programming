@@ -143,21 +143,7 @@ Write queries to:
 +------+
 
 
-4. Find the title of movies and number of stars for each movie that has atleast one rating and find the highest number of stars that movie received. Sort the result by movie title.
-
--> select m.title,max(r.rev_stars) from rating r,movies m where m.id=r.mid group by m.title having max(r.rev_stars)>0 order by m.title;
-+-------+------------------+
-| title | max(r.rev_stars) |
-+-------+------------------+
-| L     |                3 |
-| M     |                5 |
-| N     |                2 |
-| O     |                1 |
-| P     |                5 |
-+-------+------------------+
-
-
-5. Update rating of all movies directed by 'Steven Spielberg' to 5.
+4. Update rating of all movies directed by 'Steven Spielberg' to 5.
 
 -> update rating set rev_stars=5 where mid in(select id from movies where did=(select id from director where name='Steven_Spielberg'));
 +------+-----------+
@@ -169,3 +155,16 @@ Write queries to:
 | 5004 |         1 |
 | 5005 |         5 |
 +------+-----------+
+
+5. Find the title of movies and number of stars for each movie that has atleast one rating and find the highest number of stars that movie received. Sort the result by movie title.
+
+-> select m.title,max(r.rev_stars) from rating r,movies m where m.id=r.mid group by m.title having max(r.rev_stars)>0 order by m.title;
++-------+------------------+
+| title | max(r.rev_stars) |
++-------+------------------+
+| L     |                3 |
+| M     |                5 |
+| N     |                2 |
+| O     |                1 |
+| P     |                5 |
++-------+------------------+
