@@ -1,0 +1,72 @@
+EXP-10 Procedure and Functions
+
+AIM:
+
+PROGRAM:
+Create  table account with attributes account name, current balance, account no.
+
+-> create table account(name varchar(30),balance float(12,2),accNo int primary key);
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| name    | varchar(30) | YES  |     | NULL    |       |
+| balance | float(12,2) | YES  |     | NULL    |       |
+| accNo   | int         | NO   | PRI | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+-> insert into account values('A',50000,10001),('B',40000,10002),('C',900,10003),('D',312,10004),('E',5,10005),('F',100,10006);
++------+----------+-------+
+| name | balance  | accNo |
++------+----------+-------+
+| A    | 50000.00 | 10001 |
+| B    | 40000.00 | 10002 |
+| C    |   900.00 | 10003 |
+| D    |   312.00 | 10004 |
+| E    |     5.00 | 10005 |
+| F    |   100.00 | 10006 |
++------+----------+-------+
+
+1. write a PL/SQL code block that will accept an account no. from user.
+
+->
+delimiter //
+create procedure insert1(in n varchar(30),in b float(12,2),in a int)
+begin
+insert into account values(n,b,a);
+end//
+-> delimiter ;
+-> call insert1('G',30000,10007);
++------+----------+-------+
+| name | balance  | accNo |
++------+----------+-------+
+| A    | 50000.00 | 10001 |
+| B    | 40000.00 | 10002 |
+| C    |   900.00 | 10003 |
+| D    |   312.00 | 10004 |
+| E    |     5.00 | 10005 |
+| F    |   100.00 | 10006 |
+| G    | 30000.00 | 10007 |
++------+----------+-------+
+
+2. check the users balance is less than minimum balance and only then deduct 100 rs from the balance. this process is fired on the account table.
+
+-> 
+delimiter //
+create procedure p1()
+begin
+update account set balance=balance-100 where balance<1000;
+select * from account;
+end//
+-> delimiter ;
+-> call p1(); 
++------+----------+-------+
+| name | balance  | accNo |
++------+----------+-------+
+| A    | 50000.00 | 10001 |
+| B    | 40000.00 | 10002 |
+| C    |   800.00 | 10003 |
+| D    |   212.00 | 10004 |
+| E    |   -95.00 | 10005 |
+| F    |     0.00 | 10006 |
+| G    | 30000.00 | 10007 |
++------+----------+-------+
