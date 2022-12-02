@@ -2,7 +2,7 @@ EXP-10 Procedure and Functions
 
 AIM:
 
-PROGRAM:
+PROGRAM A:
 Create  table account with attributes account name, current balance, account no.
 
 -> create table account(name varchar(30),balance float(12,2),accNo int primary key);
@@ -70,3 +70,71 @@ end//
 | F    |     0.00 | 10006 |
 | G    | 30000.00 | 10007 |
 +------+----------+-------+
+
+
+
+PROGRAM B:
+
+1. 
+-> create database products;
+-> use products;
+
+2. 
+-> create table product(id int primary key, name varchar(30),cost float(12,2),price float(12,2));
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| name  | varchar(30) | YES  |     | NULL    |       |
+| cost  | float(12,2) | YES  |     | NULL    |       |
+| price | float(12,2) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
+-> insert into product values(101,'Notebook',20,40),(102,'Pen',10,20),(103,'Eraser',2,5),(104,'Glue',10,25);
++-----+----------+-------+-------+
+| id  | name     | cost  | price |
++-----+----------+-------+-------+
+| 101 | Notebook | 20.00 | 40.00 |
+| 102 | Pen      | 10.00 | 20.00 |
+| 103 | Eraser   |  2.00 |  5.00 |
+| 104 | Glue     | 10.00 | 25.00 |
++-----+----------+-------+-------+
+
+3. 
+-> 
+delimiter //
+create function profit(cost float,price float) returns float(12,2)
+begin
+declare profit float(12,2);
+set profit = price - cost;
+return profit;
+end//
+-> delimiter ;
+-> select *,profit(cost,price) as Profit from product;
++-----+----------+-------+-------+--------+
+| id  | name     | cost  | price | Profit |
++-----+----------+-------+-------+--------+
+| 101 | Notebook | 20.00 | 40.00 |  20.00 |
+| 102 | Pen      | 10.00 | 20.00 |  10.00 |
+| 103 | Eraser   |  2.00 |  5.00 |   3.00 |
+| 104 | Glue     | 10.00 | 25.00 |  15.00 |
++-----+----------+-------+-------+--------+
+
+4. 
+-> 
+delimiter //
+create procedure check1()
+begin
+update product set price = price + (price * 0.05);
+select * from product;
+end//
+-> delimiter ;
+-> call check1(); 
++-----+----------+-------+-------+
+| id  | name     | cost  | price |
++-----+----------+-------+-------+
+| 101 | Notebook | 20.00 | 42.00 |
+| 102 | Pen      | 10.00 | 21.00 |
+| 103 | Eraser   |  2.00 |  5.25 |
+| 104 | Glue     | 10.00 | 26.25 |
++-----+----------+-------+-------+
