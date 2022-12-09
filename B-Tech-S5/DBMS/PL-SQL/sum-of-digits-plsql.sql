@@ -7,7 +7,7 @@ n:=&n;
 WHILE n>0 LOOP
 r:=MOD(n,10);
 a:= a+r;
-n:=n/10;
+n:=TRUNC(n/10);
 END LOOP;
 DBMS_OUTPUT.PUT_LINE('Sum is: '||a);
 END;
