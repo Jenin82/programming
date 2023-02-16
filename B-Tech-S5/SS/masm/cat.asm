@@ -19,6 +19,6 @@ next:
 	inc di
 	jmp next	
 exit:
-	int 21h
+	int 21hff
 	mov ah,4ch
 	end start

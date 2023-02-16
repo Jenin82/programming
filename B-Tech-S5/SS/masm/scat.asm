@@ -26,4 +26,4 @@ exit:
 	mov [si],al
 	mov ah,09h	
 	int 21h
-	end start
+end start
