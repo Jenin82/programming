@@ -1,24 +1,21 @@
 .model small
 .stack 100h
 .data
-str1 db 'Hello '
+str1 db 'Hello $'
 str2 db 'World$'
 .code
 start:
 	mov ax,@data
 	mov ds,ax
-	mov ax,offset str1
+string1:
 	mov ah,09h
-	mov al,'$'
-	lea di,str2
-next:
-	cmp al,[di]
-	jz exit
-	mov bl,[di]
+	lea dx,str1
+	int 21h
+string2:
 	mov ah,09h
-	inc di
-	jmp next	
+	lea dx,str2
+	int 21h
 exit:
-	int 21hff
 	mov ah,4ch
-	end start
+	int 21h
+end start
