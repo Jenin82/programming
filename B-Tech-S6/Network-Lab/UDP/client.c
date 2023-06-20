@@ -4,7 +4,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 
-#define PORT 8080
+#define PORT 8090
 #define BUFFER_SIZE 1024
 
 int main()
@@ -39,16 +39,12 @@ int main()
 		sendto(sockfd, (const char *)buffer, strlen(buffer), 0, (const struct sockaddr *)&servaddr, sizeof(servaddr));
 
 		// If the sent message is "exit", break the loop
-		if (strcmp(buffer, "exit") == 0)
+		if (strcmp(buffer, "exit\n") == 0)
 			break;
 
+		// Receive server message and print it
 		memset(buffer, 0, sizeof(buffer));
-
-		// Receive server message
-		ssize_t n = recvfrom(sockfd, (char *)buffer, BUFFER_SIZE, 0, NULL, NULL);
-		buffer[n] = '\0';
-
-		// Print received message
+		recvfrom(sockfd, (char *)buffer, BUFFER_SIZE, 0, NULL, NULL);
 		printf("Server: %s\n", buffer);
 	}
 

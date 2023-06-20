@@ -4,7 +4,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 
-#define PORT 8080
+#define PORT 8090
 #define BUFFER_SIZE 1024
 
 int main()
@@ -12,6 +12,7 @@ int main()
 	int sockfd;
 	struct sockaddr_in servaddr, cliaddr;
 	socklen_t len;
+	int opt = 1;
 	char buffer[BUFFER_SIZE];
 
 	// Create socket
@@ -21,6 +22,7 @@ int main()
 		perror("Socket creation failed");
 		exit(EXIT_FAILURE);
 	}
+	setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt));
 
 	memset(&servaddr, 0, sizeof(servaddr));
 	memset(&cliaddr, 0, sizeof(cliaddr));
@@ -45,15 +47,12 @@ int main()
 		len = sizeof(cliaddr);
 		memset(buffer, 0, sizeof(buffer));
 
-		// Receive message from client
-		ssize_t n = recvfrom(sockfd, (char *)buffer, BUFFER_SIZE, 0, (struct sockaddr *)&cliaddr, &len);
-		buffer[n] = '\0';
-
-		// Print received message
+		// Receive message from client and print it
+		recvfrom(sockfd, (char *)buffer, BUFFER_SIZE, 0, (struct sockaddr *)&cliaddr, &len);
 		printf("Client: %s\n", buffer);
 
 		// If the received message is "exit", break the loop
-		if (strcmp(buffer, "exit") == 0)
+		if (strcmp(buffer, "exit\n") == 0)
 			break;
 
 		// Get server message input
