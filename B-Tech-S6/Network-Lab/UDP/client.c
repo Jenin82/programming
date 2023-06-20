@@ -12,7 +12,7 @@ void main()
 	char buffer[1024];
 	socklen_t addr_size;
 
-	sockfd = socket(PF_INET, SOCK_DGRAM, 0);
+	sockfd = socket(AF_INET, SOCK_DGRAM, 0);
 	memset(&server, '\0', sizeof(server));
 
 	server.sin_family = AF_INET;
