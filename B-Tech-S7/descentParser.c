@@ -60,8 +60,6 @@ void F() {
     FPrime();
 }
 
-
-
 void B() {
     if(isalnum(input[i])){
         i++;
