@@ -1,1 +1,4 @@
 .vscode
+a.out
+**/**/a.out
+**/a.out
