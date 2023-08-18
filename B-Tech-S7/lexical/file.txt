@@ -1,1 +1,2 @@
 int a = 2 ;
+char b = 't' ;
