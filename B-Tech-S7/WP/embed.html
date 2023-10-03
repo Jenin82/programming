@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>embed</title>
+</head>
+<body>
+    <script>
+        let n = parseFloat(prompt("Enter the number to find cube"))
+        if(!isNaN(n)){
+            result = document.createElement("div")
+            result.style.fontWeight = "400"
+            result.style.color = "green"
+            result.textContent = n * n * n
+            document.body.appendChild(result)
+        }
+        else {
+            alert("invalid input")
+        }
+    </script>
+</body>
+</html>

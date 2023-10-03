@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>web programming</title>
+</head>
+<body>
+    <form>
+        <input type="text" id="username">
+        <input type="password" id="password">
+        <input type="submit" value="login" onclick="return validate()">
+    </form>
+
+    <script>
+        function validate(){
+            console.log("test")
+            let username = document.getElementById("username").value
+            let password = document.getElementById("password").value
+            if(username.trim()===""){
+                alert("username cannot be blank")
+                return false
+            }
+            if(password.length < 6){
+                alert("Password must be atleast 6 characters")
+                return false
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>
