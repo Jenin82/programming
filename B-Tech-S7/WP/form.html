@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+</head>
+<body>
+    <form action="https://www.mysite.com/reg.php" method="post">
+        <label for="textbox">Username</label>
+        <input type="text" name="textbox" maxlength="25">
+        <label for="radioBtn">Radio</label>
+        <div>
+            <label><input type="radio" name="radioBtn" value="radio1">Radio 1</label>
+            <label><input type="radio" name="radioBtn" value="radio2">Radio 2</label>
+            <label><input type="radio" name="radioBtn" value="radio3">Radio 3</label>
+        </div>
+        <label for="check">Checkbox</label>
+        <div>
+            <label><input type="checkbox" name="check1" value="check1">Check 1</label>
+            <label><input type="checkbox" name="check2" value="check2">Check 2</label>
+            <label><input type="checkbox" name="check3" value="check3">Check 3</label>
+        </div>
+        <label for="fruit">Select your favorite fruits:</label>
+        <select name="fruit" multiple>
+            <option value="apple" selected>Apple</option>
+            <option value="banana">Banana</option>
+            <option value="cherry" selected>Cherry</option>
+            <option value="grape">Grape</option>
+        </select>
+        <button type="reset">Reset</button>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
