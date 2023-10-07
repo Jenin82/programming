@@ -1,53 +1,124 @@
-#include <stdio.h>
-#include <string.h>
+#include<stdio.h>
+//#include<conio.h>
+#include<string.h>
 
-int i = 0, j = 0, k, t = 1;
-char str[50], final[10], temp1[5], temp2[5], operator;
+int i=1,j=0,no=0,tmpch=90;
+char str[100],left[15],right[15];
+void findopr();
+int explore();
+void fleft(int);
+void fright(int);
+
+struct exp
+{
+ int pos;
+ char op;
+}k[15];
 
 void main()
 {
-    puts("Enter the string");
-    gets(str);
-    while (str[i] != '\0' && str[i] != '=')
-    {
-        final[i] = str[i];
-        i++;
-    }
-    k = i + 1;
-    i = 0;
-    while (str[k] != '\0' && str[k] != '+' && str[k] != '-' && str[k] != '*' && str[k] != '/')
-    {
-        temp1[i] = str[k];
-        i++;
-        k++;
-    }
-    operator= str[k];
-    k++;
-    i = 0;
-    while (str[k] != '\0' && str[k] != '+' && str[k] != '-' && str[k] != '*' && str[k] != '/')
-    {
-        temp2[i] = str[k];
-        i++;
-        k++;
-    }
-    printf("t1 = %s %c %s\n", temp1, operator, temp2);
+ printf("\t\tINTERMEDIATE CODE GENERATION\n\n");
+ printf("Enter the Expression :");
+ scanf("%s",str);
+ printf("The intermediate code:\t\tExpression\n");
+ findopr();
+ explore();
+ //getch();
+}
 
-    while (str[k] != '\0')
-    {
-        for (j = 0; j < 10; j++)
-        {
-            temp2[j] = '\0';
-        }
-        operator= str[k];
-        k++;
-        i = 0;
-        while (str[k] != '\0' && str[k] != '+' && str[k] != '-' && str[k] != '*' && str[k] != '/')
-        {
-            temp2[i] = str[k];
-            i++;
-            k++;
-        }
-        printf("t%d = t%d %c %s\n", t + 1, t, operator, temp2);
-        t++;
-    }
+void findopr()
+{
+ for(i=0;str[i]!='\0';i++)
+  if(str[i]=='=')
+  {
+  k[j].pos=i;
+  k[j++].op=':';
+  }
+ for(i=0;str[i]!='\0';i++)
+  if(str[i]=='/')
+  {
+  k[j].pos=i;
+  k[j++].op='/';
+  }
+ for(i=0;str[i]!='\0';i++)
+  if(str[i]=='*')
+  {
+  k[j].pos=i;
+  k[j++].op='*';
+  }
+ for(i=0;str[i]!='\0';i++)
+  if(str[i]=='+')
+  {
+  k[j].pos=i;
+  k[j++].op='+';
+  }
+ for(i=0;str[i]!='\0';i++)
+  if(str[i]=='-')
+  {
+  k[j].pos=i;
+  k[j++].op='-';
+  }
+}
+
+//void explore()
+int explore()
+{
+ i=1;
+ while(k[i].op!='\0')
+ {
+  fleft(k[i].pos);
+  fright(k[i].pos);
+  str[k[i].pos]=tmpch--;
+  printf("\t%c := %s%c%s\t\t",str[k[i].pos],left,k[i].op,right);
+  for(j=0;j <strlen(str);j++)
+   if(str[j]!='$')
+    printf("%c",str[j]);
+  printf("\n");
+  i++;
+ }
+ fright(-1);
+ if(no==0)
+ {
+  fleft(strlen(str));
+  printf("\t%s := %s",right,left);
+  //getch();
+  //exit(0);
+  return 0;
+ }
+ printf("\t%s :=  %c",right,str[k[--i].pos]);
+ //getch();
+}
+
+void fleft(int x)
+{
+ int w=0,flag=0;
+ x--;
+ while(x!= -1 &&str[x]!= '+' &&str[x]!='*'&&str[x]!='='&&str[x]!='\0'&&str[x]!='-'&&str[x]!='/'&&str[x]!=':')
+ {
+  if(str[x]!='$'&& flag==0)
+  {
+  left[w++]=str[x];
+  left[w]='\0';
+  str[x]='$';
+  flag=1;
+  }
+  x--;
+ }
+}
+
+void fright(int x)
+{
+ int w=0,flag=0;
+ x++;
+ while(x!= -1 && str[x]!= '+'&&str[x]!='*'&&str[x]!='\0'&&str[x]!='='&&str[x]!=':'&&str[x]!='-'&&str[x]!='/')
+ {
+  if(str[x]!='$'&& flag==0)
+  {
+  right[w++]=str[x];
+  right[w]='\0';
+  str[x]='$';
+  flag=1;
+  }
+  x++;
+ }
 }
